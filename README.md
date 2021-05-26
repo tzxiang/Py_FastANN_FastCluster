@@ -200,8 +200,10 @@ Modify `fastcluster.py`.
   pnts_fobj = tables.openFile('pnts.h5','w')
   pnts_fobj.createArray(pnts_fobj.root, 'pnts', pnts)
   # to pyTables 3.x
+  pnts_fobj = tables.open_file('pnts.h5','w')
+pnts_fobj.create_array(pnts_fobj.root, 'pnts', pnts)
   ```
-
+  
 - In `kmeans()` function of `fastcluster.py`, about line 180+, modify
   
 ```python
@@ -260,12 +262,13 @@ The final library is `fastcluster.py`, `libfastcluster.so` and `fastcluster` (he
 
 **Other issues**
 
-- Running error: `mca_base_component_repository_open: unable to open mca_op_avx: /usr/local/openmpi/lib/openmpi/mca_op_avx.so: undefined symbol: ompi_op_base_module_t_class (ignored)`
+- Running error: `mca_base_component_repository_open: unable to open mca_op_avx: /usr/local/openmpi/lib/openmpi/` `mca_op_avx.so: undefined symbol: ompi_op_base_module_t_class (ignored)`
 
   It seems to not influence the program running. It is the version issue of OpenMPI. You should use `openmpi-1.1.5` (released in 2007). Other versions will cause this error.
 
 - Error: Permission denied, cannot create folders or write files.
-Use `sudo` command, or modify the folder permission by `$chmod 777 /***/***`.
+
+  Use `sudo` command, or modify the folder permission by `$chmod 777 /***/***`.
 
 
 Other similar library used for AKM (Approximate K-Means): 
