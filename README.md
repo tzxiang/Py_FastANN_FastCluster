@@ -198,10 +198,10 @@ Modify `fastcluster.py`.
   
   
   ```python
-  # Change pyTables 2.x
+  #Change pyTables 2.x
   pnts_fobj = tables.openFile('pnts.h5','w')
   pnts_fobj.createArray(pnts_fobj.root, 'pnts', pnts)
-# to pyTables 3.x
+#to pyTables 3.x
   pnts_fobj = tables.open_file('pnts.h5','w')
   pnts_fobj.create_array(pnts_fobj.root, 'pnts', pnts)
   ```
