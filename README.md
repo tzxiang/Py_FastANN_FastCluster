@@ -195,18 +195,22 @@ Modify `fastcluster.py`.
 
 - In main function of `fastcluster.py`, modify
   
+  
+  
   ```python
   # Change pyTables 2.x
   pnts_fobj = tables.openFile('pnts.h5','w')
   pnts_fobj.createArray(pnts_fobj.root, 'pnts', pnts)
-  # to pyTables 3.x
+# to pyTables 3.x
   pnts_fobj = tables.open_file('pnts.h5','w')
-pnts_fobj.create_array(pnts_fobj.root, 'pnts', pnts)
+  pnts_fobj.create_array(pnts_fobj.root, 'pnts', pnts)
   ```
   
   
   
 - In `kmeans()` function of `fastcluster.py`, about line 180+, modify
+
+  
 
   ```python
   pnts_fobj = tables.openFile(pnts_fn, 'r')     -> pnts_fobj = tables.open_file(pnts_fn, 'r')
