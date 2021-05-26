@@ -204,17 +204,19 @@ Modify `fastcluster.py`.
 pnts_fobj.create_array(pnts_fobj.root, 'pnts', pnts)
   ```
   
-- In `kmeans()` function of `fastcluster.py`, about line 180+, modify
   
-```python
+  
+- In `kmeans()` function of `fastcluster.py`, about line 180+, modify
+
+  ```python
   pnts_fobj = tables.openFile(pnts_fn, 'r')     -> pnts_fobj = tables.open_file(pnts_fn, 'r')
-pnts_fobj.walkNodes('/', classname = 'Array') -> pnts_fobj.walk_nodes('/', classname = 'Array')
+  pnts_fobj.walkNodes('/', classname = 'Array') -> pnts_fobj.walk_nodes('/', classname = 'Array')
   ctypes.c_char_p(chkpnt_fn)                    -> ctypes.c_char_p(chkpnt_fn.encode('utf-8'))
-clst_fobj = tables.openFile(clst_fn, 'w')     -> clst_fobj = tables.open_file(clst_fn, 'w')
+  clst_fobj = tables.openFile(clst_fn, 'w')     -> clst_fobj = tables.open_file(clst_fn, 'w')
   createCArray()                                -> create_carray()
   ```
-  
-  
+
+    
 
 2)Modify the code in python 3.x format, specifically,  
 
@@ -224,21 +226,25 @@ clst_fobj = tables.openFile(clst_fn, 'w')     -> clst_fobj = tables.open_file(cl
 
 - In `build_nn_obj()` function of `nn_obj_exact_builder` class, define the type of returned value. Specifically, before `ptr=getattr**`, add 
 
+  
+  
   ```python
   if self.suffix == "d":
       libfastann.fastann_nn_obj_build_exact_d.restype = ctypes.c_void_p
   elif self.suffix == "s":
       libfastann.fastann_nn_obj_build_exact_s.restype = ctypes.c_void_p
   else:
-      libfastann.fastann_nn_obj_build_exact_c.restype = ctypes.c_void_p
+    libfastann.fastann_nn_obj_build_exact_c.restype = ctypes.c_void_p
   ```
-
+  
   
 
 
 - In `build_nn_obj()` function of `nn_obj_approx_builder` class, define the type of returned value. Specifically, before `ptr=getattr**`, add 
+
   
-```python
+
+  ```python
   if self.suffix == "d":
       libfastann.fastann_nn_obj_build_kdtree_d.restype = ctypes.c_void_p
   elif self.suffix == "s":
@@ -246,7 +252,7 @@ clst_fobj = tables.openFile(clst_fn, 'w')     -> clst_fobj = tables.open_file(cl
   else:
       libfastann.fastann_nn_obj_build_kdtree_c.restype = ctypes.c_void_p
   ```
-  
+
   
 
 
