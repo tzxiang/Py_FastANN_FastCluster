@@ -195,22 +195,16 @@ Modify `fastcluster.py`.
 
 - In main function of `fastcluster.py`, modify
   
-  
-  
   ```python
-  #Change pyTables 2.x
+  # Change pyTables 2.x
   pnts_fobj = tables.openFile('pnts.h5','w')
   pnts_fobj.createArray(pnts_fobj.root, 'pnts', pnts)
-#to pyTables 3.x
+  # To pyTables 3.x
   pnts_fobj = tables.open_file('pnts.h5','w')
   pnts_fobj.create_array(pnts_fobj.root, 'pnts', pnts)
   ```
   
-  
-  
 - In `kmeans()` function of `fastcluster.py`, about line 180+, modify
-
-  
 
   ```python
   pnts_fobj = tables.openFile(pnts_fn, 'r')     -> pnts_fobj = tables.open_file(pnts_fn, 'r')
@@ -220,8 +214,6 @@ Modify `fastcluster.py`.
   createCArray()                                -> create_carray()
   ```
 
-  
-
 2)Modify the code in python 3.x format, specifically,  
 
 - change `except OSError, e:` to `OSError as e:`; 
@@ -229,8 +221,6 @@ Modify `fastcluster.py`.
 - change `raise ***` to `raise TypeError('****')`.
 
 - In `build_nn_obj()` function of `nn_obj_exact_builder` class, define the type of returned value. Specifically, before `ptr=getattr**`, add 
-
-  
   
   ```python
   if self.suffix == "d":
@@ -240,9 +230,6 @@ Modify `fastcluster.py`.
   else:
     libfastann.fastann_nn_obj_build_exact_c.restype = ctypes.c_void_p
   ```
-  
-  
-
 
 - In `build_nn_obj()` function of `nn_obj_approx_builder` class, define the type of returned value. Specifically, before `ptr=getattr**`, add 
 
