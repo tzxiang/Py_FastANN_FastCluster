@@ -67,12 +67,12 @@ Requirements: python and numpy.
 
 First, in `./fastann/interfaces/python/fastann.py`, chang `raise` to
 
-```
+```python
 raise TypeError('query type must be the same as the base type')
 ```
 
 In `fastann.py`: `build_exact()` and  `build_kdtree()` functions, define the types of retured value before calling functions. Specifically, in `build_exact()` function, between `suffix=***` and `ptr=***`, add: 
-```
+```python
 if suffix == "d":
     lib.fastann_nn_obj_build_exact_d.restype = ctypes.POINTER(ctypes.c_void_p)
 elif suffix == "s":
@@ -82,7 +82,7 @@ else:
 ```
 
 In `build_kdtree()` function, between `suffix=***` and `ptr=***`, add: 
-```
+```python
 if suffix == "d":
     lib.fastann_nn_obj_build_kdtree_d.restype = ctypes.POINTER(ctypes.c_void_p)
 elif suffix == "s":
@@ -191,11 +191,11 @@ The compiled library is installed in `PREFIX/lib` (libfastcluster.so) and `PREFI
 
 Modify `fastcluster.py`.
 
-1) Modify the functions in pyTables 2.x (python 2.x)  to pyTables 3.x version. For pyTables 2.x -> 3.x, you can see [Pytables Migrating](http://www.pytables.org/MIGRATING_TO_3.x.html). Specifically,
+1)Modify the functions in pyTables 2.x (python 2.x)  to pyTables 3.x version. For pyTables 2.x -> 3.x, you can see [Pytables Migrating](http://www.pytables.org/MIGRATING_TO_3.x.html). Specifically,
 
 - In main function of `fastcluster.py`, modify
   
-  ```
+  ```python
   # Change pyTables 2.x
   pnts_fobj = tables.openFile('pnts.h5','w')
   pnts_fobj.createArray(pnts_fobj.root, 'pnts', pnts)
@@ -204,15 +204,17 @@ Modify `fastcluster.py`.
 
 - In `kmeans()` function of `fastcluster.py`, about line 180+, modify
   
-  ```
+```python
   pnts_fobj = tables.openFile(pnts_fn, 'r')     -> pnts_fobj = tables.open_file(pnts_fn, 'r')
 pnts_fobj.walkNodes('/', classname = 'Array') -> pnts_fobj.walk_nodes('/', classname = 'Array')
   ctypes.c_char_p(chkpnt_fn)                    -> ctypes.c_char_p(chkpnt_fn.encode('utf-8'))
 clst_fobj = tables.openFile(clst_fn, 'w')     -> clst_fobj = tables.open_file(clst_fn, 'w')
   createCArray()                                -> create_carray()
   ```
+  
+  
 
-2) Modify the code in python 3.x format, specifically,  
+2)Modify the code in python 3.x format, specifically,  
 
 - change `except OSError, e:` to `OSError as e:`; 
 
@@ -220,7 +222,7 @@ clst_fobj = tables.openFile(clst_fn, 'w')     -> clst_fobj = tables.open_file(cl
 
 - In `build_nn_obj()` function of `nn_obj_exact_builder` class, define the type of returned value. Specifically, before `ptr=getattr**`, add 
 
-  ```
+  ```python
   if self.suffix == "d":
       libfastann.fastann_nn_obj_build_exact_d.restype = ctypes.c_void_p
   elif self.suffix == "s":
@@ -229,9 +231,12 @@ clst_fobj = tables.openFile(clst_fn, 'w')     -> clst_fobj = tables.open_file(cl
       libfastann.fastann_nn_obj_build_exact_c.restype = ctypes.c_void_p
   ```
 
+  
+
+
 - In `build_nn_obj()` function of `nn_obj_approx_builder` class, define the type of returned value. Specifically, before `ptr=getattr**`, add 
   
-  ```
+```python
   if self.suffix == "d":
       libfastann.fastann_nn_obj_build_kdtree_d.restype = ctypes.c_void_p
   elif self.suffix == "s":
@@ -239,6 +244,9 @@ clst_fobj = tables.openFile(clst_fn, 'w')     -> clst_fobj = tables.open_file(cl
   else:
       libfastann.fastann_nn_obj_build_kdtree_c.restype = ctypes.c_void_p
   ```
+  
+  
+
 
 Test and compile:
 
