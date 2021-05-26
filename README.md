@@ -43,7 +43,7 @@ The compiled library is installed in `PREFIX/lib` (libfastann.so) and `PREFIX/in
 
 
 
-**1) Test C++ example**
+### 1) Test C++ example
 
 Go into `examples` folder, and run the `example1.cpp` in `fastann/examples` folders. 
 
@@ -61,7 +61,7 @@ $ sudo ldconfig
 
 
 
-**2) Install Python interfaces**
+### 2) Install Python interfaces
 
 Requirements: python and numpy.
 
@@ -112,7 +112,7 @@ Requirements: PyTables, fastann, and MPI library (OpenMPI is recommended). Here,
 
 
 
-**1) OpenMPI Under Ubuntu** 
+### 1) OpenMPI Under Ubuntu
 
 Download  `openmpi-1.1.5` (released in 2007) and install. Other versions of [OpenMPI](https://www-lb.open-mpi.org/) may cause some errors.
 
@@ -154,7 +154,7 @@ $ mpirun -np 8 hello_c
 
 
 
-**2) PyTables**
+### 2) PyTables
 
 PyTables is used to read and write hdf5 files.
 
@@ -164,7 +164,7 @@ conda install -c conda-forge pytables
 
 
 
-**3) Fastcluster**
+### 3) Fastcluster
 
 Modify the files:
 
@@ -183,11 +183,11 @@ The compiled library is installed in `PREFIX/lib` (libfastcluster.so) and `PREFI
 
 
 
-**Test**. Run `./test_mpi_queue`. "PASSED" means successful compilation.
+**a) Test**. Run `./test_mpi_queue`. "PASSED" means successful compilation.
 
 
 
-**Python 3.x interfaces**
+**b) Python 3.x interfaces**
 
 Modify `fastcluster.py`.
 
@@ -257,7 +257,7 @@ The final library is `fastcluster.py`, `libfastcluster.so` and `fastcluster` (he
 
 
 
-**Other issues**
+**c) Other issues**
 
 - Running error: `mca_base_component_repository_open: unable to open mca_op_avx: /usr/local/openmpi/lib/openmpi/` `mca_op_avx.so: undefined symbol: ompi_op_base_module_t_class (ignored)`
 
@@ -267,6 +267,8 @@ The final library is `fastcluster.py`, `libfastcluster.so` and `fastcluster` (he
 
   Use `sudo` command, or modify the folder permission by `$chmod 777 /***/***`.
 
+
+## Appendix
 
 Other similar library used for AKM (Approximate K-Means): 
 
